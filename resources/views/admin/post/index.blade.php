@@ -26,11 +26,15 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>
                             <div class="photo-container">
-                                <a href="{{ asset('uploads/'.$item->photo) }}" class="magnific"><img src="{{ asset('uploads/'.$item->photo) }}" alt=""></a>
+                                @if($item->photo)
+                                    <a href="{{ asset('uploads/'.$item->photo) }}" class="magnific"><img src="{{ asset('uploads/'.$item->photo) }}" alt="{{ $item->title }}"></a>
+                                @else
+                                    <span class="text-muted">Aucune photo</span>
+                                @endif
                             </div>
                         </td>
                         <td>{{ $item->title }}</td>
-                        <td>{{ $item->rPostCategory->name }}</td>
+                        <td>{{ $item->rPostCategory ? $item->rPostCategory->name : 'Aucune catégorie' }}</td>
                         <td>
                             <a href="{{ route('admin_post_edit',$item->id) }}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                             <a href="{{ route('admin_post_destroy',$item->id) }}" class="btn btn-danger btn-sm" onClick="return confirm('{{ __('Are you sure?') }}')"><i class="fas fa-trash"></i></a>
